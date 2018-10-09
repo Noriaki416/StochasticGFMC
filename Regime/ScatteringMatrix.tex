@@ -1,0 +1,728 @@
+\documentclass[10pt,a4j]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath} 
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\title{1次元電子系の散乱問題と固有波動関数}
+\author{島田典明, 加藤岳生}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{散乱行列の一般形}
+
+まず1次元の散乱問題で定義される散乱行列を定義し, 透過確率および波動関数の位相によって記述する方法を述べる. 
+散乱体は$x=0$にあるとし, 散乱体の場所における左右から散乱体に入射する平面波の波動関数を
+$\psi_{L}$, $\psi_{R}$, 散乱体から左右に出てくる平面波の波動関数を
+$\psi_{L}^\prime$, $\psi_{R}^\prime$とする. 
+波動関数の係数に対して散乱行列$\bm{S}$を以下のように定義する:
+\begin{align}
+& \left( \begin{array}{c} \psi_L^\prime \\ \psi^{\prime}_R \end{array} \right) 
+\equiv \bm{S} \left( \begin{array}{c} \psi_L \\ \psi_R \end{array} \right) 
+\equiv \left( \begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right)
+\left( \begin{array}{c} \psi_L \\ \psi_R \end{array} \right), 
+\label{eq:s}
+\end{align}
+確率の保存則から$\bm{S}$はユニタリー行列である:
+\begin{align}
+& |\psi_L^\prime|^2 + |\psi^{\prime}_R|^2 = ( \psi^{\prime*}_L , \psi^{\prime*}_R )
+\left( \begin{array}{c} \psi_L^\prime \\ \psi^{\prime}_R \end{array} \right) 
+= (\psi_L^* ,\psi_R^* ) \bm{S}^{\dagger} \bm{S} 
+\left( \begin{array}{c} \psi_L \\ \psi_R \end{array} \right)
+= |\psi_L|^2 + |\psi_R|^2, \\
+&\Longleftrightarrow \quad \bm{S}^{\dagger} \bm{S} = \bm{S} \bm{S}^{\dagger}  = \bm{I}. \label{eq:suni}
+\end{align} 
+ユニタリー行列の条件を具体的に成分表示すると, 
+\begin{align}
+\left(\begin{array}{cc} r^{*} & t^{*} \\ t^{\prime *} & r^{\prime *} \end{array} \right) 
+\left(\begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right) 
+= \left( \begin{array}{cc} |r|^2 + |t|^2 & r^{*}t^{\prime}  +   t^{*} r^{\prime}\\
+       rt^{\prime *} + t r^{\prime *}  & |r^{\prime}|^2 + |t^{\prime}|^2 \end{array} \right) 
+= \left( \begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array} \right),
+\label{eq:unitary1} \\
+\left(\begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right) 
+\left(\begin{array}{cc} r^{*} & t^{*} \\ t^{\prime *} & r^{\prime *} \end{array} \right) 
+= \left( \begin{array}{cc} |r|^2 + |t^\prime|^2 & r t^{*}  +   t^{\prime} r^{\prime*}\\
+       t r^* + r^\prime t^{\prime *}  & |t|^2 + |r^{\prime}|^2 \end{array} \right) 
+= \left( \begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array} \right), 
+\label{eq:unitary2} 
+\end{align}
+以上の2式の(1,1)成分と(2,2)成分より$|r|^2  = |r^\prime|^2$, $|t|^2 = |t^{\prime}|^2$, $|t|^2 + |r^2| = |t^\prime|^2 + |r^\prime|^2 = 1$
+がいえる. 透過係数を$T\equiv |t|^2 = |t^{\prime}|^2$と定義すると, $|r|^2  = |r^\prime|^2 = 1-T$であり, 
+位相因子を適当に定義することで, 
+\begin{align}
+\left( \begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right)
+= \left( \begin{array}{cc} i\sqrt{1-T}e^{i \phi_1} & \sqrt{T}e^{i \theta_2} 
+\\ \sqrt{T}e^{i \theta_1}, & i\sqrt{1-T}e^{i \phi_2} \end{array} \right)
+\end{align}
+とかける. ここで後の計算を簡単にするために, $r$, $r^{\prime}$の位相因子は
+$e^{i \phi_i + i\pi/2} = i e^{i \phi_i}$($i=1,2$)とした. 式(\ref{eq:unitary1})の(1,2)成分に着目すると
+\begin{align}
+& r^{*}t^{\prime}  +   t^{*} r^{\prime} = -i\sqrt{T(1-T)} (e^{i(\theta_2 - \phi_1)} - e^{i(-\theta_1 + \phi_2)} )  =0  \nonumber \\
+&\Longleftrightarrow \quad \theta_1 + \theta_2 = \phi_1 + \phi_2 \pmod{2 \pi}
+\end{align}
+となる(他の成分もしくは式(\ref{eq:unitary2})からも同じ条件式が得られる).
+
+さらに散乱体はスカラーポテンシャルのみで書かれているものとし, 
+磁場などが存在しないとすると, $S$行列は時間反転対称性を持ち, 以下の条件式が成立する:
+\begin{align}
+\bm{S} \bm{S}^{*} = \bm{I} \quad &\Longleftrightarrow \quad
+\left( \begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right) 
+\left( \begin{array}{cc} r^{*} & t^{\prime *} \\ t^{*} & r^{\prime *} \end{array} \right) 
+= \left( \begin{array}{cc} 1 & 0  \\ 0 & 1 \end{array} \right)  \nonumber \\
+& \Longleftrightarrow \quad 
+\left( \begin{array}{cc} |r|^2 + t^{\prime}t^{*} & rt^{\prime *} + t^{\prime} r^{\prime *}\\
+        t r^{*} + r^{\prime}t^{*}& tt^{\prime*} + |r^{\prime }|^2  \end{array} \right) 
+= \left( \begin{array}{cc} 1 & 0  \\ 0 & 1 \end{array} \right) 
+\label{eq:szikan}
+\end{align}
+式(\ref{eq:szikan})の(1,1)成分と(1,2)成分にそれぞれ着目すると
+\begin{align}
+ |r|^2 + t^{\prime}t^{*} = 1 \quad &\Longleftrightarrow \quad 1-T + Te^{i(\theta_2 - \theta_1)} = 1 \nonumber \\
+ & \Longleftrightarrow \quad \theta_1 = \theta_2 \pmod{2\pi}\\
+ rt^{\prime *} + t^{\prime} r^{\prime *} = 0 \quad &\Longleftrightarrow 
+ \quad i\sqrt{T(1-T)}(e^{i(\phi_1 - \theta_2)} - e^{\theta_2 - \phi_2}) = 0 \nonumber \\
+ & \Longleftrightarrow \quad \phi_1 + \phi_2 = 2\theta_2 \pmod{2\pi}
+\end{align}
+が得られる(他の成分からも同じ式が得られる). ここで
+\begin{align}
+\theta \equiv \frac{\phi_1 + \phi_2}{2}, \quad \phi \equiv \frac{\phi_2 - \phi_1}{2}
+\end{align}
+となる位相を導入すると$S$行列は以下のように表される: 
+\begin{align}
+\left( \begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right)
+= \left( \begin{array}{cc} i\sqrt{1-T}e^{i (\theta - \phi)} & \sqrt{T}e^{i \theta}  \\
+       \sqrt{T}e^{i \theta} & i\sqrt{1-T}e^{i (\theta + \phi)} \end{array} \right)
+\end{align}
+
+さらに散乱体は空間反転対称であるとすると, $r=r^\prime$, $t=t^\prime$が成り立ち, $\phi=0$となる. 
+その結果, $S$行列は以下のように表される:
+\begin{align}
+\left( \begin{array}{cc} r & t^{\prime} \\ t & r^{\prime} \end{array} \right)
+= \left( \begin{array}{cc} i\sqrt{1-T}e^{i \theta} & \sqrt{T}e^{i \theta}  \\
+       \sqrt{T}e^{i \theta} & i\sqrt{1-T}e^{i \theta} \end{array} \right)
+       \label{eq:Sparity}
+\end{align}
+
+\section{散乱問題と波動関数(時間反転対称性・パリティ対称性がある場合)}
+
+\subsection{波動関数}
+
+1次元の散乱体に対して左右の波動関数は次のように表される:
+\begin{align}
+\psi_L(x) &= \psi_L e^{ikx} + \psi^{\prime}_L e^{-ikx}  \label{eq:pl} \\
+\psi_R(x) &= \psi^{\prime}_R e^{ikx} + \psi_R e^{-ikx} \label{eq:pr}
+\end{align}
+(\ref{eq:pl})と(\ref{eq:pr})を$\psi_L=A$, $\psi_R=B$で書き直し, $S$行列の定義(\ref{eq:s})を使うと
+\begin{align}
+\psi_L(x) &= Ae^{ikx} + (rA +t B)e^{-ikx}  \label{eq:pl2} \\
+\psi_R(x) &= (tA + r B)e^{ikx} + Be^{-ikx} \label{eq:pr2}
+\end{align}
+ここでパリティ対称性があることから$t=t^\prime$, $r=r^\prime$であることを用いた. 
+波動関数はパリティの偶奇性により, $x>0$として
+\begin{align}
+{\rm パリティ偶}: \psi_L(-x) = \psi_R(x), \quad \quad {\rm パリティ奇}: \psi_L(-x) = -\psi_R(x)
+\end{align}
+のいずれかが成立する. 
+
+まずパリティ偶の場合は$A=B$が結論でき, 波動関数は
+\begin{align}
+\psi_{+}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} + (t+r) e^{-ik x}), & (-L/2 < x<0), \\
+A ((t+r) e^{ik x} + e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+\end{align}
+となる. ここで
+\begin{align}
+t + r = e^{i \theta} (\sqrt{T} + i \sqrt{1-T}) \equiv e^{i\theta + i \beta}, \quad (0 \le \beta \le \pi/2),
+\end{align}
+と定義する. $T$と$\beta$の関係は, 
+\begin{align}
+& e^{i  \beta} \equiv \sqrt{T} + i \sqrt{1-T}, \quad (0 \le \beta \le \pi/2 ) , \nonumber \\
+& \Longleftrightarrow \quad \beta = \tan^{-1} \left( \sqrt{\frac{1-T}{T}} \right) ,  \quad (0 \le \beta \le \pi/2 ), \nonumber \\
+& \Longleftrightarrow \quad T = \cos^2 \beta,  \quad (0 \le \beta \le \pi/2 )  , 
+\label{eq:betaformula}
+\end{align}
+とも書き直すことができる. これを用いると, 波動関数は
+\begin{align}
+\psi_{+}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} + e^{-ik x + i \theta + i\beta}), & (-L/2 < x<0), \\
+A (e^{ik x + i\theta + i\beta} + e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+\end{align}
+となる. $A=(A_+/2) e^{-i(\theta + \beta)/2}$, $\phi_+ = (\theta+\beta)/2$と置き直すことで, 
+\begin{align}
+\psi_{+}(x) &= \left\{ \begin{array}{ll} A_+ \cos \bigl( k(-x) + (\theta + \beta)/2\bigr), & (-L/2 < x<0), \\
+A_+ \cos \bigl( k x + (\theta + \beta)/2\bigr), & (0<x<L/2), \\ \end{array} \right. \\
+& = A_+ \cos \bigl( k|x| + \phi_+).
+\end{align}
+規格化因子は波動関数の規格化条件によって決める:
+\begin{align}
+& \int_{-L/2}^{L/2} A^2_+ \cos^2(k|x|+\phi_+) \, dx
+= A^2_+ \frac{k L + \sin (kL + 2\phi_+)- \sin 2\phi_+}{2 k} = 1, \\
+& \Longleftrightarrow \quad A_+ = \sqrt{\frac{2k}{k L + \sin(k L + 2\phi_+) - \sin 2\phi_+ }}
+\end{align}
+
+次にパリティ奇の場合は$A=-B$が結論でき, 波動関数は
+\begin{align}
+\psi_{-}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} - (t-r) e^{-ik x}), & (-L/2 < x<0), \\
+A ((t-r) e^{ik x} - e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+\end{align}
+となる. さきほど定義した$\beta$を用いると, 
+\begin{align}
+t - r = e^{i \theta} (\sqrt{T} - i \sqrt{1-T}) = e^{i\theta - i \beta}, \quad (0 \le \beta \le \pi/2),
+\end{align}
+となるので, 波動関数は
+\begin{align}
+\psi_{-}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} - e^{-ik x + i \theta - i\beta}), & (-L/2 < x<0), \\
+A (e^{ik x + i\theta - i\beta} - e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+\end{align}
+となる. $A=(-i A_-/2) e^{-i(\theta - \beta)/2}$, $\phi_- = (\theta-\beta)/2$と置き直すことで, 
+\begin{align}
+\psi_{-}(x) &= \left\{ \begin{array}{ll} - A_-  \sin \bigl( k(-x) + (\theta - \beta)/2\bigr), & (-L/2 < x<0), \\
+A_- \sin \bigl( k x + (\theta - \beta)/2\bigr), & (0<x<L/2), \\ \end{array} \right. \\
+& = A_- {\rm sign}(x) \sin \bigl( k|x| + \phi_-).
+\end{align}
+規格化因子は波動関数の規格化条件によって決める:
+\begin{align}
+& \int_{-L/2}^{L/2}  A_-^2 \sin^2(k|x|+\phi_-) \, dx
+= A_-^2 \frac{k L - \sin (kL + 2\phi_-)+ \sin 2\phi_-}{2 k} = 1, \\
+& \Longleftrightarrow \quad A_- = \sqrt{\frac{2k}{k L - \sin(k L + 2\phi_-) + \sin 2\phi_- }}
+\end{align}
+
+\subsection{境界条件}
+
+周期境界条件を考慮する:
+\begin{align}
+\psi(-L/2) &= \psi(L/2), \label{eq:bd1a} \\
+\psi^\prime(-L/2) &= \psi^\prime (L/2), \label{eq:bd2a}
+\end{align}
+パリティ偶のときは式(\ref{eq:bd2a})から, パリティ奇のときには式(\ref{eq:bd1a})から
+波数に対する条件を導くことができる:
+\begin{align}
+\frac{k_+ L}{2} + \phi_+ = n \pi \quad (n: {\rm 整数}) \quad 
+& \Longleftrightarrow \quad k_+ L = 2 \pi n - 2 \phi_+ \quad (n: {\rm 整数}) \nonumber \\
+& \Longleftrightarrow \quad k_+ = \frac{2 \pi n - 2 \phi_+}{L} \quad (n: {\rm 整数}) \\
+ \frac{k_- L}{2} + \phi_- = n \pi \quad (n: {\rm 整数}) \quad
+&\Longleftrightarrow \quad k_- L = 2 \pi n - 2 \phi_- \quad (n: {\rm 整数}) \nonumber \\
+& \Longleftrightarrow \quad k_- = \frac{2 \pi n - 2 \phi_-}{L} \quad (n: {\rm 整数}) 
+\end{align}
+このとき, 規格化因子は
+\begin{align}
+& A_+ = \sqrt{\frac{2(2 n\pi - 2\phi_+)}{L(2n\pi - 2\phi_+ - \sin(2 \phi_+)/2)}}, \\
+& A_- = \sqrt{\frac{2(2 n\pi - 2\phi_-)}{L(2n\pi - 2\phi_- + \sin(2 \phi_-)/2)}}, 
+\end{align}
+
+\subsection{エネルギー}
+
+第一量子化のハミルトニアンとして
+\begin{align}
+H = -\frac{\hbar^2}{2m} \partial_x^2 - \mu
+\end{align}
+を考える. ここで第二項に化学ポテンシャル$\mu$の効果を含めた. 
+フェルミ波数を$k_F$とすると, 十分低温で化学ポテンシャルの温度変化が
+無視できるとして, $\mu = (\hbar k_F)^2/2m$が成立する. 
+このハミルトニアンを波動関数に作用させると, 散乱体から十分離れた位置$x$に対して, 
+\begin{align}
+& H \psi_{\pm}(x) = \left(\frac{\hbar^2 k^2_\pm}{2m} - \mu\right) \psi_{\pm}(x) \equiv E_{\pm} \psi_\pm(x), \\
+& E_{k\sigma} = \frac{\hbar^2 k^2_\pm}{2m} - \mu = \frac{\hbar^2(k_\pm -k_F)(k_\pm + k_F)}{2m},
+\quad (\sigma = \pm: {\rm パリティ自由度})
+\end{align}
+となる. 固有波動関数$ \psi_\pm(x)$は波数$k$と波数$-k$の重ね合わせ状態にあることを考えると, 
+波数$k_+$, $k_-$は正に限定して考えてよい. フェルミ面近くの波数のみに注目すると, $k\simeq k_F$として
+よいので, 
+\begin{align}
+& E_{k\sigma} = v (k_{\sigma} -k_F), \quad \quad (v \equiv \hbar^2 k_F/m: {\rm フェルミ速度}).
+\end{align}
+
+\subsection{まとめ}
+\label{sec:wfsummary}
+
+エネルギー固有値が$E_{k\sigma}$の固有波動関数を$\psi_{k\sigma}(x)$と書くことにすれば, 
+パリティ偶のエネルギー固有値・固有波動関数は, 
+\begin{align}
+& E_{k+} = v (k_+ -k_F), \quad \quad k_+ = \frac{2 \pi n - 2\phi_{+}}{L}, \quad (n:{\rm 整数}), \\
+& \psi_{k+}(x) = A_+ \cos \bigl( k_+ |x| + \phi_+ \bigr), \quad (-L/2 < x < L/2) \\
+& A_+ =  \sqrt{\frac{2(2 n\pi - 2\phi_+)}{L(2n\pi - 2\phi_+ - \sin(2 \phi_+)/2)}}.
+\end{align}
+パリティ奇のエネルギー固有値・固有波動関数は, 
+\begin{align}
+& E_{k-} = v (k_- -k_F), \quad \quad k_- = \frac{2 \pi n - 2\phi_{-}}{L}, \quad (n:{\rm 整数}), \\
+& \psi_{k-}(x) = A_- {\rm sign}(x) \sin \bigl( k_- |x| + \phi_-\bigr), \quad (-L/2 < x < L/2), \\
+& A_- =  \sqrt{\frac{2(2 n\pi - 2\phi_-)}{L(2n\pi - 2\phi_- + \sin(2 \phi_-)/2)}}.
+\end{align}
+
+\section{物理量の計算}
+
+\subsection{場の演算子}
+
+第二量子化後の場の演算子は
+\begin{align}
+\Psi(x) = \sum_{k \sigma} c_{k\sigma} \phi_{k\sigma}(x), \label{eq:expansion1} \\
+\Psi^{\dagger}(x) = \sum_{k \sigma} c_{k\sigma}^{\dagger} \phi_{k\sigma}(x). \label{eq:expansion2}
+\end{align}
+ここで固有波動関数$\phi_{k\sigma}(x)$は実数で書き表されることに注意. 
+虚時間発展を考えると, 
+\begin{align}
+\Psi(x,\tau)= \sum_{k \sigma} c_{k\sigma} e^{-E_{k\sigma}\tau} \phi_{k\sigma}(x), 
+\label{eq:psitau} \\
+\Psi^{\dagger}(x,\tau)= \sum_{k \sigma} c_{k\sigma}^{\dagger} e^{E_{k\sigma}\tau} \phi_{k\sigma}(x), 
+\end{align}
+
+\subsection{虚時間グリーン関数}
+
+虚時間で表示したグリーン関数を
+\begin{align}
+G(x,x^\prime,\tau) = - \langle \Psi(x,\tau) \Psi^{\dagger}(x^\prime,0) \rangle,
+\end{align}
+で定義する. 固有波動関数で展開した式(\ref{eq:psitau})を使うと, 
+\begin{align}
+G(x,x^\prime,\tau) 
+&= - \sum_{k\sigma} \phi_{k\sigma}(x) \phi_{k\sigma}(x^\prime) e^{-E_{k\sigma}\tau}
+\langle c_{k\sigma} c_{k\sigma}^\dagger  \rangle, \nonumber \\
+&= - \sum_{k\sigma} \phi_{k\sigma}(x) \phi_{k\sigma}(x^\prime) e^{-E_{k\sigma}\tau}
+( 1- f(E_{k\sigma})), \label{eq:gxtau}.
+\end{align}
+ここで$f(E) = 1/(e^{\beta E}+1)$はフェルミ分布関数である. 
+フェルミオンの松原振動数$\omega_n = \pi (2n+1)/\beta$で表示したグリーン関数を
+\begin{align}
+G(x,x^\prime,\omega_n) = \int_0^\beta d\tau e^{i\omega_n \tau} G(x,x^\prime,\tau),
+\end{align}
+で定義する. 式(\ref{eq:gxtau})を用いると, 
+\begin{align}
+G(x,x^\prime,\omega_n)  
+&= - \sum_{k\sigma} \phi_{k\sigma}(x) \phi_{k\sigma}(x^\prime) 
+( 1- f(E_{k\sigma}))
+\int_0^\beta d\tau e^{i\omega_n \tau-E_{k\sigma}\tau}.
+\end{align}
+ここで
+\begin{align}
+\int_0^\beta d\tau e^{i\omega_n \tau-E_{k\sigma}\tau} = \left[
+\frac{e^{i \omega_n \tau -E_{k\sigma} \tau }}{i \omega_n -E_{k\sigma}}
+ \right]_0^\beta
+= \frac{-e^{-\beta E_{k\sigma}} - 1}{i \omega_n -E_{k\sigma}}
+\end{align}
+および$e^{-\beta E_{k\sigma}} + 1 = (1-f(E_{k\sigma}))^{-1}$を用いると, 
+\begin{align}
+G(x,x^\prime,\omega_n)  
+&= \sum_{k\sigma} \frac{\phi_{k\sigma}(x) \phi_{k\sigma}(x^\prime)}
+{i \omega_n -E_{k\sigma}}.
+\end{align}
+
+\subsection{電流演算子}
+
+電流演算子を下記のように定義する:
+\begin{align}
+J(x) = - ie\hbar \left(\Psi^{\dagger}(x) (\partial_x \Psi(x)) - (\partial_x \Psi^{\dagger}(x))\Psi(x) \right).
+\label{eq:Jdef}
+\end{align}
+これを式(\ref{eq:expansion1})-(\ref{eq:expansion2})を用いて展開すると、
+\begin{align}
+J(x) &= \sum_{k\sigma} \sum_{k^\prime \sigma^\prime} c_{k\sigma}^{\dagger}
+(- ie\hbar)\left(
+\phi_{k\sigma}(x) \frac{\partial \phi_{k^\prime\sigma^\prime}}{\partial x}(x) 
+- \frac{\partial \phi_{k\sigma}}{\partial x}(x) \phi_{k^\prime \sigma^\prime}(x)
+\right) c_{k^\prime \sigma^\prime} \nonumber \\
+& \equiv \sum_{k\sigma} \sum_{k^\prime \sigma^\prime} c_{k\sigma}^{\dagger}
+J_{k\sigma k^\prime \sigma^\prime}(x) c_{k^\prime \sigma^\prime} \\
+J_{k\sigma k^\prime \sigma^\prime}(x) & = 
+(- ie\hbar)\left(
+\phi_{k\sigma}(x) \frac{\partial \phi_{k^\prime\sigma^\prime}}{\partial x}(x) 
+- \frac{\partial \phi_{k\sigma}}{\partial x}(x) \phi_{k^\prime \sigma^\prime}(x)
+\right) 
+\end{align}
+となる。さらに平均電流演算子を
+\begin{align}
+& \bar{J} \equiv \frac{1}{L} \int_{-L/2}^{L/2} dx \, J(x) 
+\equiv \sum_{k\sigma} \sum_{k^\prime \sigma^\prime} c_{k\sigma}^{\dagger}
+\bar{J}_{k\sigma k^\prime \sigma^\prime} c_{k^\prime \sigma^\prime}, \\
+& \bar{J}_{k\sigma k^\prime \sigma^\prime} =
+(- ie\hbar)\int_{-L/2}^{L/2} dx 
+\left(
+\phi_{k\sigma}(x) \frac{\partial \phi_{k^\prime\sigma^\prime}}{\partial x}(x) 
+- \frac{\partial \phi_{k\sigma}}{\partial x}(x) \phi_{k^\prime \sigma^\prime}(x)
+\right) \label{eq:Javelement}
+\end{align}
+と定義する。ここで式(\ref{eq:Javelement})の積分の中身が偶関数のときに
+0でない積分値をとり、奇関数のときは積分値は0となる。これより、
+$\bar{J}_{k\sigma k^\prime \sigma^\prime}$は$\sigma$と$\sigma^\prime$が
+異なるパリティ対称性をもつときにのみ0ではない。つまり、
+$\sigma=\pm 1$に対して$\bar{\sigma} = \mp 1$と定義すると、
+$\sigma^{\prime} = \bar{\sigma}$のときのみ$\bar{J}_{k\sigma k^\prime \sigma^\prime}$
+は0ではない。よって、
+\begin{align}
+& J = \sum_{kk^\prime\sigma} c_{k\sigma}^{\dagger}
+\bar{J}_{k\sigma k^\prime \bar{\sigma}} c_{k^\prime \bar{\sigma}}, 
+\label{eq:Jcalc}
+\end{align}
+となる。また時間発展は、
+\begin{align}
+& J(\tau) \equiv e^{H \tau} J e^{-H \tau} = 
+\sum_{kk^\prime\sigma} c_{k\sigma}^{\dagger} e^{E_{k\sigma} \tau}
+\bar{J}_{k\sigma k^\prime \bar{\sigma}} c_{k^\prime \bar{\sigma}} e^{-E_{k^\prime \bar{\sigma}} \tau}, 
+\label{eq:Jtaucalc}
+\end{align}
+
+具体的に電流の行列要素を計算すると、
+\begin{align}
+& \phi_{k+}(x) = A_+ \cos (k_+ |x| + \phi_+), \\
+& \phi_{k-}(x) = A_- {\rm sign}(x) \cos (k_- |x| + \phi_-), \\
+& \frac{d\phi_{k+}}{dx}(x) 
+= - A_+ {\rm sign}(x) k_+ \sin (k_+ |x| + \phi_+), \\
+& \frac{d\phi_{k-}}{dx}(x) = A_- k_- \cos (k_- |x| + \phi_-), 
+\end{align}
+より
+\begin{align}
+ \bar{J}_{k+ k^\prime -} &=
+\frac{-ie\hbar}{L} \int_{-L/2}^{L/2} dx \biggl[ \phi_{k+}(x) \frac{d\phi_{k^\prime-}}{dx}(x)
+- \frac{d\phi_{k+}}{dx}(x) \phi_{k^\prime-}(x) \biggr] \nonumber \\
+&= \frac{-ie\hbar A_+ A_-}{L} \int_{-L/2}^{L/2} dx \biggl[ \cos(k_+|x|+\phi_+) k_-  \cos(k_-|x|+\phi_-) \nonumber \\
+& \hspace{10mm} + k_+ \sin(k_+|x|+\phi_+) \sin(k_-|x|+\phi_-) \biggr] , \\
+&= (\bar{J}_{k^\prime - k +} )^*
+\end{align}
+積分を実行すると、
+\begin{align}
+& \int_{-L/2}^{L/2} dx \, \cos(k_+|x|+\phi_+) \cos(k_-|x|+\phi_-) \nonumber \\
+& =  2\times\frac12 \int_0^{L/2} dx  \biggl[
+\cos((k_+ + k_-)x + \phi_+ + \phi_-) +\cos((k_+ - k_-)x + \phi_+ - \phi_-) \biggr] \nonumber \\
+& = \left[ \frac{\sin((k_+ + k_-) x + \phi_+ + \phi_-)}{k_+ + k_-} \right]_0^{L/2}
++ \left[ \frac{\sin((k_+ - k_-) x + \phi_+ - \phi_-)}{k_+ - k_-} \right]_0^{L/2} \nonumber \\
+& = - \frac{\sin(\phi_+ + \phi_-)}{k_+ + k_-} - \frac{\sin(\phi_+ - \phi_-)}{k_+ - k_-}, \\
+& \int_{-L/2}^{L/2} dx \, \sin(k_+|x|+\phi_+) \sin(k_-|x|+\phi_-) \nonumber \\
+& =  2\times\left(-\frac12\right) \int_0^{L/2} dx  \biggl[
+\cos((k_+ + k_-)x + \phi_+ + \phi_-) -\cos((k_+ - k_-)x + \phi_+ - \phi_-) \biggr] \nonumber \\
+& = \left[ - \frac{\sin((k_+ + k_-) x + \phi_+ + \phi_-)}{k_+ + k_-} \right]_0^{L/2}
++ \left[ \frac{\sin((k_+ - k_-) x + \phi_+ - \phi_-)}{k_+ - k_-} \right]_0^{L/2} \nonumber \\
+& = + \frac{\sin(\phi_+ + \phi_-)}{k_+ + k_-} - \frac{\sin(\phi_+ - \phi_-)}{k_+ - k_-}, 
+\end{align}
+となる。途中で$k_+$, $k_-$の量子化条件
+\begin{align}
+\frac{k_+ L}{2} = n_+ \pi - \phi_+, \quad \quad \frac{k_- L}{2} = n_- \pi - \phi_-
+\end{align}
+を用いた($n_+$, $n_-$は整数)。これより、電流の行列要素は、
+\begin{align}
+\bar{J}_{k+ k^\prime -} 
+& = \frac{-ie\hbar A_+ A_-}{L} \Biggl[
+k_- \Bigl(- \frac{\sin(\phi_+ + \phi_-)}{k_+ + k_-}- \frac{\sin(\phi_+ - \phi_-)}{k_+ - k_-}\Bigr) \nonumber \\
+& \hspace{25mm} + k_+ \Bigl(+ \frac{\sin(\phi_+ + \phi_-)}{k_+ + k_-} - \frac{\sin(\phi_+ - \phi_-)}{k_+ - k_-} 
+\Bigr) \Biggr] \nonumber \\
+&= \frac{-ie\hbar A_+ A_-}{L} \Biggl[
+\frac{k_+ - k_-}{k_+ + k_-} \sin(\phi_+ + \phi_-)
+- \frac{k_+ + k_-}{k_+ - k_-} \sin(\phi_+ - \phi_-)\Biggr] \nonumber \\
+& = (\bar{J}_{k^\prime- k+} )^*
+\end{align}
+ここで$k_+ , k_- \simeq k_F$の近くの振る舞いだけを考える。後述するように
+$k_+ - k_-$は$1/L$程度の小さい量であり、$k_+ + k_- \simeq k_F$は$L$によらないので、
+上記の式の第2項が支配的である。よって、$L$が十分大きい時、
+\begin{align}
+\bar{J}_{k+ k^\prime -} \simeq \frac{ie\hbar A_+ A_-}{L} \frac{k_+ + k_-}{k_+ - k_-} \sin \beta ,
+\end{align}
+としてよい($\phi_+ =(\theta +\beta)/2$, $\phi_- = (\theta - \beta)/2$を用いた)。
+特にその絶対値の2乗は、
+\begin{align}
+|\bar{J}_{k+ k^\prime -}|^2 &\simeq \frac{e^2 \hbar^2 A_+^2 A_-^2}{L^2} 
+\left( \frac{k_+ + k_-}{k_+ - k_-} \right)^2 \sin^2 \beta \nonumber \\
+&= \frac{e^2 \hbar^2 A_+^2 A_-^2}{L^2} 
+\left(\frac{k_+ + k_-}{k_+ - k_-}\right)^2 R
+\label{eq:Japprox}
+\end{align}
+となる。ここで$R = 1 -T$は反射確率であり、式(\ref{eq:betaformula})を用いた。
+
+\subsection{電流-電流相関関数}
+
+電流-電流相関関数を以下のように定義する:
+\begin{align}
+C_{JJ}(\tau) = - \langle J(\tau) J(0) \rangle.
+\end{align}
+式(\ref{eq:Jcalc})-(\ref{eq:Jtaucalc})を用いて計算をすると、
+\begin{align}
+C_{JJ}(\tau) &= - \sum_{k_1 k_2 \sigma} \sum_{k_3 k_4 \sigma^\prime}
+e^{(E_{k_1 \sigma} - E_{k_2 \bar{\sigma}})\tau} J_{k_1 \sigma k_2 \bar{\sigma}} 
+J_{k_3 \sigma^\prime k_4 \bar{\sigma}^\prime} 
+\langle c_{k_1\sigma}^\dagger c_{k_2 \bar{\sigma}} c_{k_3\sigma^\prime}^\dagger c_{k_4 \bar{\sigma}^\prime} \rangle
+\end{align}
+となる。式の最後に現れる演算子の期待値はWickの定理を用いる: 
+\begin{align}
+\langle c_{k_1\sigma_1}^\dagger c_{k_2\sigma_2} c^\dagger_{k_3\sigma_3} c_{k_4\sigma_4} \rangle
+& = \delta_{k_1,k_2} \delta_{\sigma_1,\sigma_2} \delta_{k_3,k_4} \delta_{\sigma_3,\sigma_4} 
+f(E_{k_1\sigma_1}) f(E_{k_3\sigma_3}) \nonumber \\
+& + \delta_{k_1,k_4} \delta_{\sigma_1,\sigma_4} \delta_{k_2,k_3} \delta_{\sigma_2,\sigma_3} 
+f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2})).
+\end{align}
+ここで第一項は例えば$\langle J(\tau) J(0) \rangle$に対して
+$\langle J(\tau)\rangle \langle J(0)\rangle$のような計算結果を
+与える。これは$\tau$依存性がなく、かつ熱平衡状態では0となるので、
+無視してよい。よって、以下ではWickの定理の第二項の項のみを考える:
+\begin{align}
+C_{JJ}(\tau) & = - \sum_{k_1 k_2 \sigma} 
+e^{(E_{k_1 \sigma} - E_{k_2 \bar{\sigma}})\tau} J_{k_1 \sigma k_2 \bar{\sigma}} 
+J_{k_2 \bar{\sigma} k_1 \sigma} f(E_{k_1 \sigma}) (1-f(E_{k_2 \sigma})), \nonumber \\
+& = - \sum_{k_1 k_2 \sigma} 
+e^{(E_{k_1 \sigma} - E_{k_2 \bar{\sigma}})\tau} |J_{k_1 \sigma k_2 \bar{\sigma}} |^2 f(E_{k_1 \sigma}) (1-f(E_{k_2 \sigma}))
+\end{align}
+
+ボゾンの松原振動数$\omega_n = 2\pi n/\beta$で表示した電流-電流相関関数を
+以下のように定義する:
+\begin{align}
+C_{JJ}(i \omega_n) = \int_0^\beta d\tau e^{i\omega_n \tau} C_{JJ}(\tau). 
+\end{align}
+具体的に計算すると、
+\begin{align}
+\int_0^{\beta} d\tau e^{i\omega_n \tau + (E_1-E_2)\tau}
+= \left[ \frac{e^{i\omega_n \tau + (E_1-E_2)\tau}}{i\omega_n + E_1-E_2} \right]_0^\beta
+= \frac{e^{\beta (E_1-E_2)}-1}{i\omega_n + E_1-E_2}
+\end{align}
+および
+\begin{align}
+f(E_1) (1-f(E_2)) &= \frac{e^{\beta E_2}}{(e^{\beta E_1}+1)(e^{\beta E_2}+1)} \nonumber \\
+&= \left(\frac{1}{e^{\beta E_1}+1} - \frac{1}{e^{\beta E_2}+1}\right) \frac{e^{\beta E_2}}{e^{\beta E_2} - e^{\beta E_1}}
+\nonumber \\
+&= \frac{f(E_1) - f(E_2)}{1-e^{\beta(E_1-E_2)}}
+\end{align}
+を用いて、
+\begin{align}
+C_{JJ}(i \omega_n) = \sum_{k_1 k_2 \sigma} 
+\frac{|J_{k_1 \sigma k_2 \bar{\sigma}}|^2 (f(E_{k_1\sigma})-f(E_{k_2\bar{\sigma}}))}
+{i\omega_n + E_{k_1\sigma} - E_{k_2 \bar{\sigma}}}
+\end{align}
+
+\newpage
+
+\appendix
+
+\section{時間反転対称性のみがある場合}
+
+1次元の散乱体に対して左右の波動関数は次のように表される:
+\begin{align}
+\psi_L(x) &= \psi_L e^{ikx} + \psi^{\prime}_L e^{-ikx}  \label{eq:pl} \\
+\psi_R(x) &= \psi^{\prime}_R e^{ikx} + \psi_R e^{-ikx} \label{eq:pr}
+\end{align}
+(\ref{eq:pl})と(\ref{eq:pr})を$\psi_L=A$, $\psi_R=B$で書き直し, $S$行列の定義(\ref{eq:s})を使うと
+\begin{align}
+\psi_L(x) &= Ae^{ikx} + (rA +t^{\prime}B)e^{-ikx}  \label{eq:pl2} \\
+\psi_R(x) &= (tA + r^{\prime}B)e^{ikx} + Be^{-ikx} \label{eq:pr2}
+\end{align}
+
+次に周期境界条件を考慮する. 
+\begin{align}
+\psi_L(-L/2) &= \psi_R(L/2), \label{eq:bd1} \\
+\psi_L^\prime(-L/2) &= \psi_R^\prime (L/2), \label{eq:bd2}
+\end{align}
+ここでプライムは$x$についての導関数を表す. (\ref{eq:bd1})より
+\begin{align}
+& A e^{-ikL/2} + (rA + t^{\prime}B) e^{ikL/2} = (tA + r^{\prime}B)e^{ikL/2} + Be^{-ikL/2} \nonumber \\
+& \Longleftrightarrow \quad \{ 1+(r-t)e^{ikL} \} A + \{ -1 + (t^{\prime} - r^{\prime}) e^{ikL} \} B = 0, 
+\label{eq:bda} 
+\end{align}
+(\ref{eq:bd2})より
+\begin{align}
+& ik \bigl\{A e^{-ikL/2} -(rA + t^{\prime}B) e^{ikL/2} \bigr\} 
+= ik \bigl\{ (tA+r^{\prime}B)e^{ikL/2} - B e^{-ikL/2} \bigr\} \nonumber \\
+& \Longleftrightarrow \quad \{ 1- (r+t) e^{ikL} \} A + \{ 1 - (t^{\prime} + r^{\prime})e^{ikL} \}B = 0.
+\label{eq:bdb}
+\end{align}
+(\ref{eq:bda})と(\ref{eq:bdb})をまとめると
+\begin{eqnarray}
+\left( \begin{array}{cc}
+1+ (r-t) e^{ikL} & -1 + (t^{\prime} - r^{\prime}) e^{ikL} \\
+1-(r+t) e^{ikL} & 1-(t^{\prime} + r^{\prime}) e^{ikL} 
+\end{array} \right)
+\left( \begin{array}{c} A \\ B \end{array} \right)
+= \left( \begin{array}{c} 0 \\ 0 \end{array} \right)
+\label{eq:bdab}
+\end{eqnarray}
+(\ref{eq:bdab})の$A$, $B$が非自明解を持つための必要十分条件より
+\begin{align}
+& \left| \begin{array}{cc}
+1+ (r-t) e^{ikL} & -1 + (t^{\prime} - r^{\prime}) e^{ikL} \\
+1-(r+t) e^{ikL} & 1-(t^{\prime} + r^{\prime}) e^{ikL} 
+\end{array} \right| = 0 \nonumber \\
+& \Longleftrightarrow  (tt^{\prime} - rr^{\prime})e^{2ikL} -(t+t^{\prime}) e^{ikL} + 1 = 0
+\label{eq:det}
+\end{align}
+2次方程式の解の公式より
+\begin{align}
+ e^{ikL} &= \frac{t+t^{\prime} \pm \sqrt{(t+t^{\prime})^2 -4(tt^{\prime} - rr^{\prime})} }{2(tt^{\prime} - rr^{\prime})} 
+\end{align}
+式(\ref{eq:Sparity})により$S$行列の要素を変数$T$, $\theta$のみで書き表すと
+\begin{align}
+& e^{ikL} = e^{-i \theta} (\sqrt{T} \pm i \sqrt{1-T} ) = e^{-i \theta \pm i \beta}, \nonumber \\
+& \Longleftrightarrow \quad k = \frac{-\theta \pm \beta + 2\pi n}{L} \equiv k_{n,\pm}, \quad (n: {\rm integer})
+\end{align}
+ここで位相因子$\beta$は
+\begin{align}
+& e^{i  \beta} \equiv \sqrt{T} + i \sqrt{1-T}, \quad (0 \le \beta \le \pi/2 ) , \nonumber \\
+& \Longleftrightarrow \quad \beta = \tan^{-1} \left( \sqrt{\frac{1-T}{T}} \right) ,  \quad (0 \le \beta \le \pi/2 ), \nonumber \\
+& \Longleftrightarrow \quad T = \cos^2 \beta,  \quad (0 \le \beta \le \pi/2 )  , 
+\end{align}
+と定義した. 
+
+%このとき, $S$行列の要素は
+%\begin{align}
+%t = t^\prime = \sqrt{T} e^{i \theta} = \cos \beta \, e^{i \theta}, \quad
+%r = r^\prime = i \sqrt{1-T} e^{i \theta} = i \sin \beta \, e^{i \theta} 
+%\end{align}
+%となる. 
+
+%まず$k = k_{n,+} =(-\theta + \beta + 2\pi n)/L$のときは, エネルギー固有値は
+%$\epsilon_{n,+} = v k_{n,+}$である. 固有波動関数は, 式(\ref{eq:bdab})の1行目の等式から
+%\begin{align}
+%B = - \frac{1+ (r-t) e^{ikL} }{-1 + (t^{\prime} - r^{\prime}) e^{ikL}} A .
+%\end{align}
+%これを用いて, $r A + t^\prime B = t A + r^\prime B = e^{i (\theta + \beta)} A$が示せる. 
+%このとき, 波動関数は
+%\begin{align}
+%\psi_{n,+}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} + e^{-ik x+i (\theta + \beta)}), & (-L/2 < x<0), \\
+%A (e^{ik x+i (\theta + \beta)} + e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+%\end{align}
+%となる. $A=A^\prime e^{-i(\theta + \beta)/2}$と置き直すことで, 
+%\begin{align}
+%\psi_{n,+}(x) &= \left\{ \begin{array}{ll} 2 A^\prime \cos \bigl( k(-x) + (\theta + \beta)/2\bigr), & (-L/2 < x<0), \\
+%2 A^\prime \cos \bigl( k x + (\theta + \beta)/2\bigr), & (0<x<L/2), \\ \end{array} \right. \\
+%& =2  A^{\prime} \cos \bigl( k|x| + (\theta + \beta)/2).
+%\end{align}
+%これは$x$の偶関数なので, このエネルギー固有状態はパリティ偶である. 
+%
+%次に$k = k_{n,-} =(-\theta - \beta + 2\pi n)/L$のときは, エネルギー固有値は
+%$\epsilon_{n,-} = v k_{n,-}$である. 式(\ref{eq:bdab})から
+%$r A + t^\prime B = t A + r^\prime B = e^{i (\theta + \beta)} A$が示せる. 
+%このとき, 波動関数は
+%\begin{align}
+%\psi_{n,+}(x) &= \left\{ \begin{array}{ll} A (e^{ik x} + e^{-ik x+i (\theta + \beta)}), & (-L/2 < x<0), \\
+%A (e^{ik x+i (\theta + \beta)} + e^{-ik x} ), & (0<x<L/2), \end{array} \right.
+%\end{align}
+%となる. $A=A^\prime e^{-i(\theta + \beta)/2}$と置き直すことで, 
+%\begin{align}
+%\psi_{n,+}(x) &= \left\{ \begin{array}{ll} 2 A^\prime \cos \bigl( k(-x) + (\theta + \beta)/2\bigr), & (-L/2 < x<0), \\
+%2 A^\prime \cos \bigl( k x + (\theta + \beta)/2\bigr), & (0<x<L/2), \\ \end{array} \right. \\
+%& =2  A^{\prime} \cos \bigl( k|x| + (\theta + \beta)/2).
+%\end{align}
+
+\section{場の演算子の分解を利用した相関関数の計算(ボツ案)}
+
+この計算方法だとパリティによる選択則が議論しにくいので没にした。
+
+\subsection{場の演算子の分解}
+
+場の演算子をRight-goingの成分とLeft-goingの成分に分ける. 
+値の範囲を$0<x<L$とすると、固有波動関数は
+\begin{align}
+\phi_{k+}(x) &= A_+ \cos \bigl( k_+ |x| + \phi_+ \bigr)
+= \frac{A_+ e^{i\phi_+}}{2} e^{ik_+x} + \frac{A_+ e^{i\phi_+}}{2} e^{-ik_+ x} \nonumber \\
+& = a_+ e^{ik_+x} + a_+ e^{-ik_+x}, \quad \quad (a_+ \equiv A_+ e^{i\phi_+}/2), \\
+\phi_{k-}(x) &= A_- \sin \bigl( k_- |x| + \phi_- \bigr)
+= \frac{A_- e^{i\phi_-}}{2i} e^{ik_-x} - \frac{A_- e^{i\phi_-}}{2i} e^{-ik_-x} \nonumber \\
+& = a_- e^{ik_-x} - a_- e^{-ik_-x}, \quad \quad (a_- \equiv A_- e^{i\phi_-}/(2i) ), 
+\end{align}
+と書き換えられる。これより、
+\begin{align}
+& \Psi(x) = \Psi_R(x) + \Psi_L(x), \label{eq62} \\
+& \Psi_R(x) \equiv \sum_{k\sigma} c_{k\sigma} a_\sigma e^{ik_{\sigma}x}, \\
+& \Psi_L(x) \equiv \sum_{k\sigma} \sigma c_{k\sigma} a_\sigma e^{-ik_{\sigma}x}, \label{eq64}
+\end{align}
+となる($k_\sigma>0$に注意).
+
+\subsection{電流演算子}
+
+電流演算子を以下のように定義する:
+\begin{align}
+J(x) \equiv \rho_R(x) - \rho_L(x) = \Psi_R^\dagger(x) \Psi_R(x) - \Psi_L^\dagger(x) \Psi_L(x).
+\label{eq:Jrhorelation}
+\end{align}
+時間発展を計算すると、
+\begin{align}
+J(x,\tau) \equiv \rho_R(x,\tau) - \rho_L(x,\tau) 
+= \Psi_R^\dagger(x,\tau) \Psi_R(x,\tau) - \Psi_L^\dagger(x,\tau) \Psi_L(x,\tau) ,
+\end{align}
+
+\subsection{電流-電流相関関数}
+
+電流-電流相関関数を以下のように定義する:
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) = - \langle J(x,\tau) J(x^\prime,0) \rangle.
+\end{align}
+式(\ref{eq:Jrhorelation})を用いて, 
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) = 
+&- \langle \rho_R(x,\tau) \rho_R(x^\prime,0) \rangle
+- \langle \rho_L(x,\tau) \rho_L(x^\prime,0) \rangle \nonumber \\
+&+ \langle \rho_R(x,\tau) \rho_L(x^\prime,0) \rangle
++ \langle \rho_L(x,\tau) \rho_R(x^\prime,0) \rangle ,
+\end{align}
+以下で各項を式(\ref{eq62})-(\ref{eq64})を用いて評価するが、その際、以下の式を用いる(Wickの定理): 
+\begin{align}
+\langle c_{k_1\sigma_1}^\dagger c_{k_2\sigma_2} c^\dagger_{k_3\sigma_3} c_{k_4\sigma_4} \rangle
+& = \delta_{k_1,k_2} \delta_{\sigma_1,\sigma_2} \delta_{k_3,k_4} \delta_{\sigma_3,\sigma_4} 
+f(E_{k_1\sigma_1}) f(E_{k_3\sigma_3}) \nonumber \\
+& + \delta_{k_1,k_4} \delta_{\sigma_1,\sigma_4} \delta_{k_2,k_3} \delta_{\sigma_2,\sigma_3} 
+f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2})).
+\end{align}
+ここで第一項は例えば$\langle \rho_R(x,\tau) \rho_R(x^\prime,0) \rangle$に対して
+$\langle \rho_R(x,\tau)\rangle \langle \rho_R(x^\prime,0)\rangle$のような計算結果を
+与える。これは$\tau$依存性がなく、電流-電流相関関数に対する寄与も0となるので、
+無視してよい。よって、以下ではWickの定理の第二項の項のみを考える。
+\begin{align}
+\langle \rho_R(x,\tau) \rho_R(x^\prime,0) \rangle
+& = \langle \Psi^\dagger_R(x,\tau) \Psi_R(x,\tau) \Psi^\dagger_R(x^\prime,0) \Psi_R(x^\prime,0) \rangle \nonumber \\
+& = \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} \sum_{k_3\sigma_3} \sum_{k_4\sigma_4} 
+a_{k_1\sigma_1}^* a_{k_2\sigma_2} a_{k_3\sigma_3}^* a_{k_4\sigma_4} \nonumber \\
+& \hspace{5mm} \times e^{-ik_{1\sigma}x+ik_{2\sigma}x-ik_{3\sigma}x^\prime+ik_{4\sigma}x^\prime} e^{(E_{k_1\sigma_1}-E_{k_2\sigma_2})\tau}
+\langle c_{k_1\sigma_1}^\dagger c_{k_2\sigma_2} c^\dagger_{k_3\sigma_3} c_{k_4\sigma_4} \rangle \nonumber \\
+&=  \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+\nonumber \\ & \hspace{5mm} \times  e^{-ik_{1\sigma}(x-x^\prime)+ik_{2\sigma}(x-x^\prime)}
+e^{(E_{k_1\sigma_1}-E_{k_2\sigma_2})\tau} f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2}))
+\end{align}
+同様にして、
+\begin{align}
+\langle \rho_L(x,\tau) \rho_L(x^\prime,0) \rangle
+&=  \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+\nonumber \\ & \hspace{5mm} \times  e^{ik_{1\sigma}(x-x^\prime)-ik_{2\sigma}(x-x^\prime)}
+e^{(E_{k_1\sigma_1}-E_{k_2\sigma_2})\tau} f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2})), \\
+\langle \rho_R(x,\tau) \rho_L(x^\prime,0) \rangle
+&=  \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+\nonumber \\ & \hspace{5mm} \times  e^{-ik_{1\sigma}(x+x^\prime)+ik_{2\sigma}(x+x^\prime)}
+e^{(E_{k_1\sigma_1}-E_{k_2\sigma_2})\tau} f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2})), \\
+\langle \rho_L(x,\tau) \rho_R(x^\prime,0) \rangle
+&=  \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+\nonumber \\ & \hspace{5mm} \times  e^{ik_{1\sigma}(x+x^\prime)-ik_{2\sigma}(x+x^\prime)}
+e^{(E_{k_1\sigma_1}-E_{k_2\sigma_2})\tau} f(E_{k_1\sigma_1}) (1-f(E_{k_2\sigma_2})).
+\end{align}
+以上より
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) &= -  \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+e^{(E_1-E_2)\tau} f(E_1) (1-f(E_2)) \nonumber \\
+& \hspace{5mm} \times \bigl( +e^{-ik_{1\sigma}(x-x^\prime)+ik_{2\sigma}(x-x^\prime)}
++e^{ik_{1\sigma}(x-x^\prime)-ik_{2\sigma}(x-x^\prime)} \\
+& \hspace{10mm} -e^{-ik_{1\sigma}(x+x^\prime)+ik_{2\sigma}(x+x^\prime)}
+- e^{ik_{1\sigma}(x+x^\prime)-ik_{2\sigma}(x+x^\prime)}\bigr)
+\end{align}
+となる。ここで$E_1 \equiv E_{k_1\sigma_1}$, $E_2 \equiv E_{k_2\sigma_2}$と略記した。
+
+ボゾンの松原振動数$\omega_n = 2\pi n/\beta$で表示した電流-電流相関関数を
+以下のように定義する:
+\begin{align}
+C_{JJ}(x,x^\prime,\omega_n) = \int_0^\beta d\tau e^{i\omega_n \tau} C_{JJ}(x,x^\prime,\tau). 
+\end{align}
+具体的に計算すると、
+\begin{align}
+\int_0^{\beta} d\tau e^{i\omega_n \tau + (E_1-E_2)\tau}
+= \left[ \frac{e^{i\omega_n \tau + (E_1-E_2)\tau}}{i\omega_n + E_1-E_2} \right]_0^\beta
+= \frac{e^{\beta (E_1-E_2)}-1}{i\omega_n + E_1-E_2}
+\end{align}
+および
+\begin{align}
+f(E_1) (1-f(E_2)) &= \frac{e^{\beta E_2}}{(e^{\beta E_1}+1)(e^{\beta E_2}+1)} \nonumber \\
+&= \left(\frac{1}{e^{\beta E_1}+1} - \frac{1}{e^{\beta E_2}+1}\right) \frac{e^{\beta E_2}}{e^{\beta E_2} - e^{\beta E_1}}
+\nonumber \\
+&= \frac{f(E_1) - f(E_2)}{1-e^{\beta(E_1-E_2)}}
+\end{align}
+を用いて、
+\begin{align}
+C_{JJ}(x,x^\prime,\omega_n) &= \sum_{k_1\sigma_1} \sum_{k_1\sigma_2} |a_{\sigma_1}|^2  |a_{\sigma_2}|^2
+\frac{f(E_1)-f(E_2)}{i\omega_n + E_1-E_2}
+\nonumber \\
+& \hspace{5mm} \times \bigl( +e^{-ik_{1\sigma}(x-x^\prime)+ik_{2\sigma}(x-x^\prime)}
++ e^{ik_{1\sigma}(x-x^\prime)-ik_{2\sigma}(x-x^\prime)} \\
+& \hspace{10mm} -e^{-ik_{1\sigma}(x+x^\prime)+ik_{2\sigma}(x+x^\prime)}
+- e^{ik_{1\sigma}(x+x^\prime)-ik_{2\sigma}(x+x^\prime)}\bigr)
+\end{align}
+
+\end{document}

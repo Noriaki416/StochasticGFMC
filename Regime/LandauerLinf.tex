@@ -1,0 +1,395 @@
+
+\documentclass[10pt,a4j]{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsmath} 
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\title{線形応答理論とランダウアー公式}
+\author{島田典明, 加藤岳生}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{概要}
+
+本レジメではまず線形応答の一般論について説明し、相互作用のない1次元電子系に1個の不純物ポテンシャルをおいた場合について、
+線形応答理論からランダウアー公式を導出する\cite{Bruus04}。
+有限サイズ系の議論との対比のため、可能な限り系のサイズが無限大のまま計算を行う。
+本論文では、計算の途中は$e=1$, $\hbar=1$とし、最後の公式で次元解析によって$e$, $\hbar$を復活させる。
+
+\section{線形応答の一般理論}
+
+無摂動のハミルトニアン$\mathcal{H}_0$に摂動として$\mathcal{H}_{\rm ext}=-F(t)\hat{A}$を加えた場合、
+物理量$\hat{B}$を線形応答理論で求めると以下のようになる:\cite{Takada99}
+\begin{align}
+\braket{\hat{B}(t)}_{\rm ext} & = \int^{\infty}_{-\infty} dt^{\prime} F(t-t^{\prime}) C^{R}_{BA}(t^{\prime}) \\
+C^{R}_{BA}(t) &\equiv -i \Theta (t) \braket{ [\hat{B}(t),\hat{A} ]}
+\end{align}
+ここで$\langle \cdots \rangle$は熱平衡状態における期待値、$\langle \cdots \rangle_{\rm ext}$は
+外場があるときの期待値である。また$\langle \hat{B} \rangle=0$とし、
+\begin{align}
+\Theta(t) = \left\{ \begin{array}{ll} 1 & (t > 0) \\ 0 & (t < 0) \end{array} \right.
+\end{align}
+は階段関数である。$F(t) \propto F_0 e^{-i\omega t}$の形を仮定すると、
+\begin{align}
+\braket{\hat{B}(t)}_{\rm ext} & = \int^{\infty}_{-\infty} dt^{\prime} \, F_0 e^{-i\omega(t-t^\prime)} C^{R}_{BA}(t^{\prime}) \nonumber \\
+& = F_0 e^{-i\omega t} C^{R}_{BA}(\omega), \\
+C^{R}_{BA}(\omega) &= \int^{\infty}_{-\infty} dt \, e^{i\omega t} C^{R}_{BA}(t), 
+\end{align}
+となる。よって$C^{R}_{BA}$は線形応答係数そのものになる:
+\begin{align}
+C^{R}_{BA}(\omega) = \frac{\braket{\hat{B}(t)}_{\rm ext}}{F_0 e^{-i\omega t}},
+\end{align}
+と決めることができる。$C^{R}_{BA}(\omega)$(もしくは$C^{R}_{BA}(t)$)は遅延相関関数であるが、
+これは虚時間形式の相関関数$C_{BA}(\tau)$から以下の解析接続の手続きによって得られる:
+\begin{align}
+C_{BA}(\tau) &= - \langle T_{\tau} B(\tau) A(0) \rangle , \\
+C_{BA}(i\omega_n) & = \int_0^{\beta} d\tau \, C_{BA}(\tau) e^{i\omega_n \tau} , \\
+C_{BA}^R(\omega) & = C_{BA}(i\omega_n \rightarrow \omega + i\delta), 
+\end{align}
+
+以下では簡単のため1次元電子系の電気伝導を考える。
+電子系に時間に依存するベクトルポテンシャル$A(x,t) = A(x)e^{-i\omega t}$が存在するとき、摂動ハミルトニアンは、
+\begin{align}
+\mathcal{H}_{\rm ext} = \int dx^\prime\, A(x^\prime) e^{- i\omega t} J(x^\prime),
+\end{align}
+となる。ここで$J(x)$は電流演算子である。この外場のもとで、電流を応答理論で求めると、
+\begin{align}
+\braket{J(x,t)}_{\rm ext} &= - \int dx^\prime \, A(x^\prime) e^{-i\omega t} C^{R}_{JJ}(x,x^\prime,\omega) , \\
+C^{R}_{JJ}(x,x^\prime,\omega) &= \int^{\infty}_{-\infty} dt \, e^{i\omega t} C^{R}_{BA}(x,x^\prime,t), \\
+C^{R}_{JJ}(x,x^\prime,t) &\equiv -i \Theta (t) \braket{ [J(x,t),J(x^\prime,0) ]} ,
+\end{align}
+となる(熱平衡状態で電流が0であることを用いた)。電場が$E(x,t) = -\dot{A}(x,t) = i \omega A(x)e^{-i\omega t}$
+で与えられることを用いると、
+\begin{align}
+\braket{J(x,t)}_{ext} &= \frac{1}{-i\omega} \int dx^\prime \, E(x,t) C^{R}_{JJ}(x,x^\prime,\omega), \\
+C^{R}_{JJ}(x,x^\prime,\omega) &= \int dt \, e^{i\omega t}C^{R}_{JJ}(x,x^\prime,t), \\
+C^{R}_{JJ}(x,x^\prime,t) &= - i\Theta(t) \langle [ J(x,t), J(x^\prime,0) ] \rangle
+\end{align}
+となる。非局所伝導度の定義
+\begin{align}
+\braket{J(x,t)}_{ext} = \int dx^\prime \, \sigma(x,x^\prime,\omega) E(x,t)  
+\end{align}
+と比較することで、電気伝導度は電流電流相関関数によって計算されることがわかる:
+\begin{align}
+\sigma(x,x^\prime,\omega) = \frac{1}{-i(\omega+i\delta)} C^R_{JJ}(x,x^\prime,\omega)
+\end{align}
+ここで$t=-\infty$で無摂動状態にあるという境界条件を表すために、分母の$\omega$を
+$\omega + i\delta$に置き換えた。
+これを久保公式$\cite{Kubo57}$という。虚時間形式からは、下記のように求められる。
+\begin{align}
+& C_{JJ}(x,x^\prime,\tau) =  - \langle T_\tau J(x,\tau), J(x^\prime,0) \rangle, \\
+& \Longrightarrow \quad C_{JJ}(x,x^\prime,i\omega_n) = \int_0^{\beta} d\tau \, C_{JJ}(\tau) e^{i\omega_n \tau} , \\
+& \Longrightarrow \quad \sigma(x,x^\prime,\omega) = 
+\frac{1}{-i(\omega+i\delta)} C_{JJ}(x,x^\prime, i\omega_n \rightarrow \omega + i\delta), 
+\end{align}
+
+\section{Landauer公式の導出}
+
+無限系において線形応答理論からLandauer公式を導く手続きをまとめる。
+散乱体の位置を$|x| \le w$とすると、散乱体から離れた場所で
+場の演算子をRight-goingおよびLeft-gointの成分で分けてかくと、
+散乱行列$S$の成分を用いて、
+\begin{align}
+\Psi_{R}(x) &= \left\{ \begin{array}{ll} {\displaystyle \int \frac{dk}{\sqrt{2\pi}} c_{kR} e^{ikx}} & (x<-w) \\
+{\displaystyle \int \frac{dk}{\sqrt{2\pi}} (t(k)c_{kR} + r^\prime(k) c_{kL}) e^{ikx}} & (w < x) \end{array} \right.\\
+\Psi_{L}(x) &=
+ \left\{ \begin{array}{ll} {\displaystyle  \int \frac{dk}{\sqrt{2\pi}}(t^\prime(k) c_{kL} + r(k) c_{kR}) e^{-ikx}} & (x<-w) \\
+{\displaystyle  \int \frac{dk}{\sqrt{2\pi}} c_{kL}e^{-ikx} } & (w < x) \end{array} \right.
+\end{align}
+となる。また電子間の相互作用がないときは時間発展を解くことができ、
+\begin{align}
+\Psi_{R}(x,\tau) &= \left\{ \begin{array}{ll} {\displaystyle \int \frac{dk}{\sqrt{2\pi}} c_{kR}e^{ikx-\varepsilon_k \tau}}& (x<-w) \\
+{\displaystyle  \int \frac{dk}{\sqrt{2\pi}}(t(k)c_{kR} + r^\prime(k) c_{kL}) e^{ikx-\varepsilon_k \tau}} & (w < x) \end{array} \right.\\
+\Psi_{L}(x,\tau) &=
+ \left\{ \begin{array}{ll} {\displaystyle \int \frac{dk}{\sqrt{2\pi}}(t^\prime(k) c_{kL} + r(k) c_{kR}) e^{-ikx-\varepsilon_k \tau}} & (x<-w) \\
+{\displaystyle  \int \frac{dk}{\sqrt{2\pi}} c_{kL} e^{-ikx-\varepsilon_k \tau}} & (w < x) \end{array} \right.
+\end{align}
+となる。ここで今無限系を考えているので、波数$k$の右向き進行波と波数$-k$の左向き進行波の
+エネルギーが同じ値$\varepsilon_k$をもつことを使った。
+
+この場の演算子を用いると電流演算子$J(x)$は
+\begin{align}
+J(x) &= v_F(\rho_R(x) -  \rho_L(x)) =v_F( \Psi^{\dagger}_R(x) \Psi_R(x) -  \Psi^\dagger_L(x) \Psi_L(x))
+\end{align}
+である。これより電流電流相関関数は
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) &=- \braket{J(x,\tau) J(x^\prime,0)}\\
+&=v_F^2 \biggl[ -\braket{\rho_R(x,\tau) \rho_R(x^\prime,0)} -\braket{\rho_L(x,\tau) \rho_L(x^\prime,0)} \nonumber \\
+& \hspace{10mm} + \braket{\rho_R(x,\tau) \rho_L(x^\prime,0)} + \braket{\rho_L(x,\tau) \rho_R(x^\prime,0)} \biggr]
+\end{align}
+となる。
+
+最初に$x^\prime<-w$, $w<x$に範囲を制限して考える。まず
+\begin{align}
+& \hspace{-4mm} \braket{\rho_{R}(x,\tau) \rho_{R}(x^\prime,0)} \nonumber \\
+&= \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{-ik_1x+\varepsilon_{k_1}\tau}e^{ik_2x-\varepsilon_{k_2}\tau}e^{-ik_3x^\prime}e^{ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times  \braket{ (t^{*} (k_1)c^\dagger_{k_1R} + r^{\prime*}(k_1) c^\dagger_{k_1L})  (t(k_2) c_{k_2R} 
++ r^\prime(k_2) c_{k_2L}) c^\dagger_{k_3R} c_{k_4R} } \nonumber \\
+&=  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \,
+t^{*} (k_1)t(k_2)e^{-i(k_1-k_2)(x-x^\prime) 
++ (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{R}(x^\prime,0)}  
+\end{align}
+となる。同様にして、
+\begin{align}
+& \hspace{-4mm} \braket{\rho_{L}(x,\tau) \rho_{L}(x^\prime,0)} \nonumber \\  
+&= \frac{1}{(2\pi)^2} \int dk_1 dk_2 \,
+t^{\prime*} (k_1)t^\prime(k_2)e^{i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{L}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)}  
+\end{align}
+である。他の電荷相関については、
+\begin{align}
+& \hspace{-4mm} \braket{\rho_{R}(x,\tau) \rho_{L}(x^\prime,0)}  \nonumber \\
+& = \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{-ik_1x+\varepsilon_{k_1}\tau}e^{ik_2x-\varepsilon_{k_2}\tau}e^{ik_3x^\prime}e^{-ik_4x^\prime}\nonumber \\
+& \hspace{5mm} \times \langle (t^{*} (k_1)c^\dagger_{k_1R} + r^{\prime*} (k_1)c^\dagger_{k_1L})  (t(k_2) c_{k_2R} + r^\prime(k_2) c_{k_2L}) \nonumber \\
+& \hspace{7mm} \times (t^{\prime*} (k_3)c^\dagger_{k_3L} + r^* (k_3)c^\dagger_{k_3R}) 
+(t^\prime(k_4)  c_{k_4L} + r(k_4) c_{k_4R}) \rangle \nonumber \\
+&=  \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{-ik_1x+\varepsilon_{k_1}\tau}e^{ik_2x-\varepsilon_{k_2}\tau}e^{ik_3x^\prime}e^{-ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times \biggl[ t^*(k_1) r(k_4) \braket{c^\dagger_{k_1R}c_{k_4R}}\biggl\{ t(k_2)r^*(k_3) \braket{c_{k_2R}c^\dagger_{k_3R}} + r^\prime(k_2) t^{\prime*}(k_3)\braket{c_{k_2L}c^\dagger_{k_3L}} \biggr\} \nonumber \\
+& \hspace{7mm}  + r^{\prime*}(k_1) t^\prime (k_4)\braket{c^\dagger_{k_1L}c_{k_4L}} \biggl\{ t(k_2)r^*(k_3) \braket{c_{k_2R}c^\dagger_{k_3R}} + r^\prime(k_2) t^{\prime*} (k_3)\braket{c_{k_2L}c^\dagger_{k_3L}} \biggr\} \  \biggr]\nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)}  \nonumber \\
+&= \frac{1}{(2\pi)^2} \int dk_1 dk_2\,
+e^{-i(k_1-k_2)(x + x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2}))\nonumber \\
+&\hspace{5mm} \times \biggl[ t^*(k_1) r(k_1) +  r^{\prime*}(k_1) t(k_1) \biggr] \biggl[  t(k_2)r^*(k_2) +  r^\prime(k_2) t^{\prime*}(k_2) \biggr]
+\nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)} 
+\end{align}
+となるが、散乱行列$S$のユニタリー性より
+\begin{align}
+t(k_2)r^*(k_2) +  r^\prime(k_2) t^{\prime*}(k_2)  = t(k_2)r^*(k_2)  - t(k_2)r^*(k_2)  = 0
+\end{align}
+なので、
+\begin{align}
+\braket{\rho_{R}(x,\tau) \rho_{L}(x^\prime,0)}  = \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)}
+\end{align}
+となる。同様に
+\begin{align}
+\braket{\rho_{L}(x,\tau) \rho_{R}(x^\prime,0)}  = \braket{\rho_{L}(x,\tau)}  \braket{ \rho_{R}(x^\prime,0)}
+\end{align}
+もいえる。
+以上より
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) &= - \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2\,
+t^{*} (k_1)t(k_2)e^{-i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+&- \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2\,
+t^{\prime*} (k_1)t^\prime(k_2)e^{+i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& -\Bigl(\braket{\rho_{R}(x,\tau)} - \braket{ \rho_{L}(x,\tau)}\Bigr)\Bigl(\braket{\rho_{R}(x^\prime,0)} - \braket{ \rho_{L}(x^\prime,0)}\Bigr)
+\end{align}
+がいえる。最後の項は熱平衡状態で$\braket{\rho_{R}(x^\prime,0)} = \braket{ \rho_{L}(x^\prime,0)}$より、落とすことができる。
+松原振動数でフーリエ変換を施すと
+\begin{align}
+C_{JJ}(x,x^\prime,i \omega_m) =& \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2\,
+t^{*} (k_1)t(k_2)e^{-i(k_1-k_2)(x-x^\prime)} 
+\frac{f(\varepsilon_{k_1}) - f(\varepsilon_{k_2})}{i\omega_m + \varepsilon_{k_1}-\varepsilon_{k_2} } \nonumber \\
+&  \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2\,
+t^{\prime*}(k_1)t^\prime(k_2)e^{i(k_1-k_2)(x-x^\prime)} 
+\frac{f(\varepsilon_{k_1}) - f(\varepsilon_{k_2})}{i\omega_n + \varepsilon_{k_1}-\varepsilon_{k_2} } \nonumber \\
+= &\frac{1}{(2\pi)^2} 
+\int d\varepsilon_1 d\varepsilon_2 \, 
+t^{*} (\varepsilon_1)t(\varepsilon_2)e^{-i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F} \frac{f(\varepsilon_1) - f(\varepsilon_2)}{i\omega_m + \varepsilon_1-\varepsilon_2 } \nonumber \\
+& \frac{1}{(2\pi)^2} 
+\int d\varepsilon_1 d\varepsilon_2 \,
+t^{\prime*} (\varepsilon_1)t^\prime(\varepsilon_2)
+e^{i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F} \frac{f(\varepsilon_1) - f(\varepsilon_2)}{i\omega_m + \varepsilon_1-\varepsilon_2 } 
+\end{align}
+となる。最後の等式では$\epsilon = v_F(k-k_F)$を用いて波数からエネルギーに変数変換を行った。
+これより電気伝導度は
+\begin{align}
+& \hspace{-4mm} \sigma(x,x^\prime,\omega) \nonumber \\
+&= \frac{C_{JJ}(x,x^\prime,i\omega_m\rightarrow \omega + i \delta)}{-i(\omega+i\delta)} \nonumber \\
+&= - \frac{1}{i(\omega+i\delta)}
+\frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, t^{*}(\varepsilon_1)t(\varepsilon_2) 
+e^{-i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F} 
+\frac{f(\varepsilon_1) - f(\varepsilon_2)}{\omega + i \delta + \varepsilon_1-\varepsilon_2 } \nonumber \\
+&\hspace{5mm} -  \frac{1}{i(\omega+i\delta)} \frac{1}{(2\pi)^2} 
+\int d\varepsilon_1 d\varepsilon_2 \,  t^{\prime*}(\varepsilon_1)t^\prime(\varepsilon_2) e^{i(\varepsilon_1-\varepsilon_2)(x-x^\prime)} 
+\frac{f(\varepsilon_1) - f(\varepsilon_2)}{\omega + i \delta + \varepsilon_1-\varepsilon_2 } 
+\end{align}
+ここで$\omega > 0$とし、最初の因子$1/(\omega + i\delta)$からでてくるDrude重みは無視すれば、
+\begin{align}
+& \hspace{-4mm} \sigma(x,x^\prime,\omega) \nonumber \\
+&= - \frac{1}{i\omega(2\pi)^2} \int d\varepsilon_1 \int d\varepsilon_2
+[ t^*(\varepsilon_1)t(\varepsilon_2) e^{-i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F} 
++  t^{\prime*}(\varepsilon_1)t^\prime(\varepsilon_2) e^{+i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F}] \nonumber \\
+& \hspace{10mm} \times 
+( f(\varepsilon_1) - f(\varepsilon_2)) (-i\pi) \delta(\omega + \varepsilon_1-\varepsilon_2 ) \\
+&=  \frac{1}{4 \pi} \int d\varepsilon (t^*(\varepsilon)t(\varepsilon+\omega) + t^{\prime*}(\varepsilon)t^\prime(\varepsilon+\omega) )
+\frac{f(\varepsilon) - f(\varepsilon+\omega)}{\omega}
+\end{align}
+最後に$\omega \rightarrow 0$の極限を考え、透過確率
+\begin{align}
+T(\epsilon) = t^*(\varepsilon)t(\varepsilon)  = t^{\prime*}(\varepsilon)t^\prime(\varepsilon) 
+\end{align}
+を用いると、
+\begin{align}
+\sigma_{{\rm DC}}(x,x^\prime) &\equiv \lim_{\omega \rightarrow 0} \sigma(x,x^\prime,\omega) \nonumber \\
+&=  \frac{1}{2\pi } \int d\varepsilon \, T(\varepsilon) \left( - \frac{\partial f(\varepsilon)}{\partial \varepsilon}\right) 
+\end{align}
+となり、$x$, $x^\prime$の値によらなくなる(ただし、$x^\prime < 0 < x$を仮定していることに注意)。
+
+次に$x^\prime<-w$, $w<x$に範囲を制限して考える。
+\begin{align}
+& \hspace{-4mm} \braket{\rho_{R}(x,\tau) \rho_{R}(x^\prime,0)} \nonumber \\
+& = \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{-ik_1x+\varepsilon_{k_1}\tau}e^{ik_2x-\varepsilon_{k_2}\tau}e^{-ik_3x^\prime}e^{ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times \langle (t^{*} (k_1)c^\dagger_{k_1R} + r^{\prime*}(k_1) c^\dagger_{k_1L}) 
+ (t(k_2) c_{k_2R} + r^\prime(k_2) c_{k_2L}) \nonumber \\
+& \hspace{10mm} \times
+(t^{*} (k_3)c^\dagger_{k_3R} + r^{\prime*}(k_3) c^\dagger_{k_3L}) 
+(t(k_4)c^\dagger_{k_4R} + r^{\prime}(k_4) c^\dagger_{k_4L}) \rangle  \nonumber \\
+& =  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \,
+( t^{*}(k_1)t(k_1) + r^{\prime*}(k_1)r^\prime(k_1) )\times ( t^{*}(k_2)t(k_2) + r^{\prime*}(k_2)r^\prime(k_2) ) \nonumber \\
+& \hspace{10mm} e^{-i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{R}(x^\prime,0)}  
+\end{align}
+散乱行列$S$のユニタリー性より
+\begin{align}
+t(k_1)t^*(k_1) +  r^\prime(k_1) t^{\prime*}(k_1)  = t(k_2)t^*(k_2) +  r^\prime(k_2) t^{\prime*}(k_2) = 1
+\end{align}
+がいえるので、
+\begin{align}
+\braket{\rho_{R}(x,\tau) \rho_{R}(x^\prime,0)}
+& =  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \, e^{-i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{R}(x^\prime,0)}  
+\end{align}
+となる。同様にして、
+\begin{align}
+\braket{\rho_{L}(x,\tau) \rho_{L}(x^\prime,0)} & = \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{ik_1x+\varepsilon_{k_1}\tau}e^{-ik_2x-\varepsilon_{k_2}\tau}e^{ik_3x^\prime}e^{-ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times \langle c^\dagger_{k_1L} c_{k_2L} c^\dagger_{k_3L} c^\dagger_{k_4L} \rangle  \nonumber \\
+& =  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \, e^{i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{L}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)}  , \\
+%%%%%
+\braket{\rho_{R}(x,\tau) \rho_{L}(x^\prime,0)} 
+& = \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{-ik_1x+\varepsilon_{k_1}\tau}e^{ik_2x-\varepsilon_{k_2}\tau}e^{+ik_3x^\prime}e^{-ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times \langle (t^{*} (k_1)c^\dagger_{k_1R} + r^{\prime*}(k_1) c^\dagger_{k_1L})
+ (t(k_2) c_{k_2R} + r^\prime(k_2) c_{k_2L}) c^\dagger_{k_3L} c^\dagger_{k_4L} \rangle  \nonumber \\
+& =  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \, r^{\prime*}(k_1)r^\prime(k_2) 
+e^{-i(k_1-k_2)(x+x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{R}(x,\tau)}  \braket{ \rho_{L}(x^\prime,0)}  , \\
+%%%%%
+\braket{\rho_{L}(x,\tau) \rho_{R}(x^\prime,0)} 
+& = \frac{1}{(2\pi)^2} \int dk_1 dk_2 dk_3 dk_4 \,
+e^{+ik_1x+\varepsilon_{k_1}\tau}e^{-ik_2x-\varepsilon_{k_2}\tau}e^{-ik_3x^\prime}e^{+ik_4x^\prime} \nonumber \\
+& \hspace{5mm} \times \langle c^\dagger_{k_1L} c^\dagger_{k_2L}
+(t^{*} (k_3)c^\dagger_{k_3R} + r^{\prime*}(k_3) c^\dagger_{k_3L})
+ (t(k_4) c_{k_4R} + r^\prime(k_4) c_{k_4L})  \rangle  \nonumber \\
+& =  \frac{1}{(2\pi)^2} \int dk_1 dk_2 \, r^{\prime*}(k_1)r^\prime(k_2) 
+e^{i(k_1-k_2)(x+x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} + \braket{\rho_{L}(x,\tau)}  \braket{ \rho_{R}(x^\prime,0)}  
+\end{align}
+以上より
+\begin{align}
+C_{JJ}(x,x^\prime,\tau) &=   - \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2 \, 
+e^{-i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& -  \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2 \, 
+e^{i(k_1-k_2)(x-x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+&+ \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2 \, r^{\prime*}(k_1)r^\prime(k_2) 
+e^{-i(k_1-k_2)(x+x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& + \frac{v_F^2}{(2\pi)^2} \int dk_1 dk_2 \, r^{\prime*}(k_1)r^\prime(k_2) 
+e^{i(k_1-k_2)(x+x^\prime) + (\varepsilon_{k_1} - \varepsilon_{k_2})\tau}
+f(\varepsilon_{k_1})(1 - f(\varepsilon_{k_2})) \nonumber \\
+& \hspace{5mm} - (\braket{\rho_{L}(x,\tau)}-\braket{\rho_{R}(x,\tau)} )( \braket{ \rho_{R}(x^\prime,0)} - \braket{ \rho_{L}(x^\prime,0)} ) .
+\end{align}
+最後の項は熱平衡状態で$\braket{\rho_{R}(x^\prime,0)} = \braket{ \rho_{L}(x^\prime,0)}$より、落とすことができる。
+フーリエ変換を行い、波数積分をエネルギー積分に置き換えると、
+\begin{align}
+C_{JJ}(x,x^\prime,i\omega_n) &=   \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, 
+e^{-i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F}
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} \nonumber \\
+& + \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, 
+e^{i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F }
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} 
+\nonumber \\
+&- \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, r^{\prime*}(\varepsilon_1)r^\prime(\varepsilon_2) 
+e^{-i(\varepsilon_1-\varepsilon_2)(x+x^\prime)/v_F}
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} \nonumber \\
+& -\frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, r^{\prime*}(\varepsilon_1)r^\prime(\varepsilon_2) 
+e^{i(\varepsilon_1-\varepsilon_2)(x+x^\prime)/v_F }
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} .
+\end{align}
+これより電気伝導度は、
+\begin{align}
+& \hspace{-4mm} \sigma^R(x,x^\prime,\omega) \nonumber \\
+&= \frac{C_{JJ}(x,x^\prime,i\omega_m\rightarrow \omega + i \delta)}{i(\omega+i\delta)} \nonumber \\
+&= - \frac{1}{i(\omega + i\delta) } \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, 
+e^{-i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F}
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} \nonumber \\
+& - \frac{1}{i(\omega + i\delta)} \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, 
+e^{i(\varepsilon_1-\varepsilon_2)(x-x^\prime)/v_F }
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} 
+\nonumber \\
+& + \frac{1}{i(\omega + i\delta)} \frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, r^{\prime*}(\varepsilon_1)r^\prime(\varepsilon_2) 
+e^{-i(\varepsilon_1-\varepsilon_2)(x+x^\prime)/v_F}
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} \nonumber \\
+& + \frac{1}{i(\omega + i\delta) }\frac{1}{(2\pi)^2} \int d\varepsilon_1 d\varepsilon_2 \, r^{\prime*}(\varepsilon_1)r^\prime(\varepsilon_2) 
+e^{i(\varepsilon_1-\varepsilon_2)(x+x^\prime)/v_F }
+\frac{f(\varepsilon_1)- f(\varepsilon_2)}{i\omega_n + \varepsilon_1 - \varepsilon_2} .
+\end{align}
+ここで$\omega > 0$とし、最初の因子$1/(\omega + i\delta)$からでてくるDrude重みは無視すれば、
+\begin{align}
+\sigma^R(x,x^\prime,\omega) 
+&= \frac{1}{4\pi} \int d\varepsilon \, e^{i\omega (x-x^\prime)/v_F} \frac{f(\varepsilon)- f(\varepsilon + \omega)}{\omega} \nonumber \\
+& + \frac{1}{4\pi} \int d\varepsilon \, e^{-i\omega (x-x^\prime)/v_F} \frac{f(\varepsilon)- f(\varepsilon + \omega)}{\omega} \nonumber \\
+& - \frac{1}{4\pi} \int d\varepsilon \, r^{\prime*}(\varepsilon)r^\prime(\varepsilon+\omega) 
+e^{i\omega (x+x^\prime)/v_F}
+\frac{f(\varepsilon)- f(\varepsilon + \omega)}{\omega}  \nonumber \\
+& - \frac{1}{4\pi} \int d\varepsilon \, r^{\prime*}(\varepsilon)r^\prime(\varepsilon+\omega) 
+e^{-i \omega (x+x^\prime)/v_F }
+\frac{f(\varepsilon)- f(\varepsilon + \omega)}{\omega}  .
+\end{align}
+最後に$\omega \rightarrow 0$の極限を考え、透過確率
+\begin{align}
+T(\epsilon) = 1-r^*(\varepsilon)r(\varepsilon)  = 1- r^{\prime*}(\varepsilon)r^\prime(\varepsilon) 
+\end{align}
+を用いると、
+\begin{align}
+\sigma_{{\rm DC}}(x,x^\prime) &= \lim_{\omega \rightarrow 0} \sigma(x,x^\prime,\omega) \nonumber \\
+&=  \frac{1}{2\pi } \int d\varepsilon \, T(\varepsilon) \left( - \frac{\partial f(\varepsilon)}{\partial \varepsilon}\right) 
+\end{align}
+となり、やはり$x$, $x^\prime$の値によらなくなる($0 <x^\prime, x$を仮定していることに注意)。
+またこの結果は、$x^\prime < 0 < x$の場合と同じである。
+
+以上より、$x^\prime$の符号に関わらず、$\sigma_{{\rm DC}}(x,x^\prime)$は一定値である。
+これより、$x>0$に対して電流は、
+\begin{align}
+\langle J(x)\rangle & = \int dx^\prime \, \sigma_{\rm DC}(x,x^\prime) E(x^\prime) \nonumber \\
+& = \sigma_{\rm DC}  \int dx^\prime \, E(x^\prime) =  \sigma_{\rm DC}(x,x^\prime) \Delta V
+\end{align}
+となるので、コンダクタンス$G$は
+\begin{align}
+G & = \sigma_{\rm DC} 
+=  \frac{1}{2\pi} \int d\varepsilon \, T(\varepsilon) \left( - \frac{\partial f(\varepsilon)}{\partial \varepsilon}\right)
+\end{align}
+となる。最後に電荷$e$, $\hbar$を復活させると、
+\begin{align}
+G &=  \frac{e^2}{2\pi \hbar} 
+\int d\varepsilon \, T(\varepsilon) \left( - \frac{\partial f(\varepsilon)}{\partial \varepsilon}\right) \nonumber \\
+&=  \frac{e^2}{h} \int d\varepsilon \, T(\varepsilon) \left( - \frac{\partial f(\varepsilon)}{\partial \varepsilon}\right)
+\end{align}
+となり、Landauer公式が導かれる。
+
+\begin{thebibliography}{9}
+\bibitem{Bruus04} H. Bruus and K. Flensberg, {\it Many-Body Quantum Theory in Condensed
+Matter Physics --- An Introduction} (Oxford University Press, 2004).
+\bibitem{Takada99} 高田康民「多体問題」(朝倉書店, 1999).
+\bibitem{Kubo57}R. Kubo, J. Phys. Soc. Jpn. \textbf{12} 570 (1957).
+% \bibitem{Delft98} von Delft, J. and Schoeller, H. Ann. Phys., {\bf 7} 225, (1998); cond-mat/9805275. 
+\end{thebibliography}
+
+\end{document}
